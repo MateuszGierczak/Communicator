@@ -1,16 +1,17 @@
 #include "Server.hpp"
+#include "ServerSettings.hpp"
 
-#include <QtDebug>
+#include <iostream>
 
-void Server::start()
+Server::Server(const ServerSettings& settings)
 {
-    if(listen())
+    if(listen(QHostAddress::Any, settings.port))
     {
-        qDebug() << "Listening...";
+        std::cout << "Listening..." << std::endl;
     }
 }
 
 void Server::incomingConnection(qintptr descriptor)
 {
-    qDebug() << "Someone connected to server";
+    std::cout << "Someone connected to server" << std::endl;
 }

@@ -1,6 +1,13 @@
 #include "Client.hpp"
+#include "ServerSettings.hpp"
 
-int main()
+#include <QCoreApplication>
+
+int main(int argv, char* argc[])
 {
+    QCoreApplication app {argv, argc};
 
+    ServerSettings settings {"127.0.0.1", 12345};
+
+    return app.exec();
 }
