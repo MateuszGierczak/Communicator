@@ -1,10 +1,22 @@
 #pragma once
 
-#include <QMainWindow>
+#include <QWidget>
+#include <QGridLayout>
+#include <QPlainTextEdit>
 
-class View : public QMainWindow
+class MessageTextEdit : public QPlainTextEdit
+{
+    Q_OBJECT
+private:
+    void keyPressEvent(QKeyEvent* event) override;
+};
+
+class View : public QWidget
 {
     Q_OBJECT
 public:
+    View();
 private:
+    QGridLayout layout_;
+    MessageTextEdit messageText_;
 };

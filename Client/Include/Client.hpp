@@ -1,7 +1,5 @@
 #pragma once
 
-#include <memory>
-
 #include <QTcpSocket>
 
 class ServerSettings;
