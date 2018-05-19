@@ -11,6 +11,11 @@ class Server : public QTcpServer
 public:
     Server(const ServerSettings&);
 
+    void run();
+
+private slots:
+    void handleNewConnection();
+
 private:
-    void incomingConnection(qintptr descriptor) override;
+    const ServerSettings& settings_;
 };

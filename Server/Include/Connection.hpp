@@ -1,6 +1,8 @@
 #pragma once
 
-class Connection
+#include <QTcpSocket>
+
+class Connection : public QTcpSocket
 {
 public:
 private:

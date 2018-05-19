@@ -10,5 +10,7 @@ int main(int argc, char* argv[])
     ServerSettings settings {"127.0.0.1", 12345};
     Server server {settings};
 
+    server.run();
+
     return app.exec();
 }
