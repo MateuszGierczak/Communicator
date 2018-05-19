@@ -13,7 +13,7 @@ public:
 
     void run();
 private:
-    const ServerSettings& settings;
+    const ServerSettings& settings_;
 
     QTcpSocket socket_ {};
 };

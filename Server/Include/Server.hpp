@@ -1,5 +1,9 @@
 #pragma once
 
+#include "Connection.hpp"
+
+#include <vector>
+#include <memory>
 #include <QtNetwork/QTcpServer>
 
 class ServerSettings;
@@ -18,4 +22,6 @@ private slots:
 
 private:
     const ServerSettings& settings_;
+
+    std::vector<std::unique_ptr<Connection>> connections_;
 };

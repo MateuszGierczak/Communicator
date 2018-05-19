@@ -1,5 +1,6 @@
 #include "Server.hpp"
 #include "ServerSettings.hpp"
+#include "Connection.hpp"
 
 #include <iostream>
 
@@ -20,4 +21,8 @@ void Server::run()
 void Server::handleNewConnection()
 {
     std::cout << "Someone connected to server" << std::endl;
+
+    const QTcpSocket& socket = *nextPendingConnection();
+
+    connections_.push_back(std::make_unique<Connection>(socket.socketDescriptor()));
 }
