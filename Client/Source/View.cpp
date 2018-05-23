@@ -2,6 +2,15 @@
 
 #include <iostream>
 
+namespace
+{
+bool isEnterPressedWithoutModifiers(const QKeyEvent& event)
+{
+    return (event.key() == Qt::Key_Enter or event.key() == Qt::Key_Return) and
+            event.modifiers() == Qt::NoModifier;
+}
+}
+
 View::View()
 {
     layout_.addWidget(&messageText_);
@@ -10,10 +19,8 @@ View::View()
 
 void MessageTextEdit::keyPressEvent(QKeyEvent *event)
 {
-   if((event->key() == Qt::Key_Enter or
-      event->key() == Qt::Key_Return) and
-       event->modifiers() == Qt::NoModifier)
+   if(isEnterPressedWithoutModifiers(*event))
    {
-       std::cout << "Wcisnieto enter" << std::endl;
+       std::cout << "Enter pressed" << std::endl;
    }
 }
