@@ -2,7 +2,7 @@
 
 #include "Connection.hpp"
 
-#include <vector>
+#include <map>
 #include <memory>
 #include <QtNetwork/QTcpServer>
 
@@ -18,10 +18,12 @@ public:
     void run();
 
 private slots:
-    void handleNewConnection();
+    void handleDisconnectConnection();
 
 private:
+    void incomingConnection(qintptr descriptor) override;
+
     const ServerSettings& settings_;
 
-    std::vector<std::unique_ptr<Connection>> connections_;
+    std::map<unsigned int, std::unique_ptr<Connection>> connections_;
 };

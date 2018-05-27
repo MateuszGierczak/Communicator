@@ -6,9 +6,7 @@
 
 Server::Server(const ServerSettings& settings)
     : settings_(settings)
-{
-    connect(this, SIGNAL(newConnection()), this, SLOT(handleNewConnection()));
-}
+{}
 
 void Server::run()
 {
@@ -18,10 +16,25 @@ void Server::run()
     }
 }
 
-void Server::handleNewConnection()
+void Server::handleDisconnectConnection()
 {
-    const QTcpSocket& socket = *nextPendingConnection();
-    std::cout << "Someone connected to server with descriptor = " << socket.socketDescriptor() << std::endl;
+    Connection* connection = qobject_cast<Connection*>(sender());
 
-    connections_.push_back(std::make_unique<Connection>(socket.socketDescriptor()));
+    connections_.erase(connection->getId());
+
+    std::cout << "Client with ID = " << connection->getId() << " disconnected."
+              << " Number of connected clients = " << connections_.size() << std::endl;
+}
+
+void Server::incomingConnection(qintptr descriptor)
+{
+    auto client = std::make_unique<Connection>();
+
+    std::cout << "Client with ID = " << client->getId() << " connected" << std::endl;
+
+    client->setSocketDescriptor(descriptor);
+
+    connect(client.get(), SIGNAL(disconnected()), this, SLOT(handleDisconnectConnection()));
+
+    connections_.insert({client->getId(), std::move(client)});
 }
