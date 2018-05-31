@@ -4,7 +4,7 @@
 
 class ServerSettings;
 
-class Client
+class Client : public QTcpSocket
 {
 public:
     Client(const ServerSettings&);
@@ -12,6 +12,4 @@ public:
     void run();
 private:
     const ServerSettings& settings_;
-
-    QTcpSocket socket_ {};
 };

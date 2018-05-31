@@ -7,5 +7,5 @@ Client::Client(const ServerSettings& settings)
 
 void Client::run()
 {
-    socket_.connectToHost(settings_.host.data(), settings_.port);
+    connectToHost(settings_.host.data(), settings_.port);
 }

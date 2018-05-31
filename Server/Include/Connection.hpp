@@ -11,7 +11,7 @@ class Connection : public QTcpSocket
 public:
     Connection();
 
-    unsigned int getId() const { return id_; }
+    ConnectionId getId() const { return id_; }
 
 private slots:
     void handleRead();
