@@ -12,5 +12,5 @@ Connection::Connection()
 
 void Connection::handleRead()
 {
-    std::cout << "Received data" << std::endl;
+    std::cout << "Received data on server site" << std::endl;
 }
