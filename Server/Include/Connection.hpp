@@ -2,6 +2,8 @@
 
 #include <QTcpSocket>
 
+using ConnectionId = unsigned int;
+
 class Connection : public QTcpSocket
 {
     Q_OBJECT
@@ -15,7 +17,7 @@ private slots:
     void handleRead();
 
 private:
-    static unsigned int nextId_;
+    static ConnectionId nextId_;
 
-    const unsigned int id_ {nextId_++};
+    const ConnectionId id_ {nextId_++};
 };

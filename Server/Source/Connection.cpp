@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-unsigned int Connection::nextId_ {1};
+ConnectionId Connection::nextId_ {1};
 
 Connection::Connection()
 {

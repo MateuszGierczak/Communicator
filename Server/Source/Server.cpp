@@ -36,5 +36,5 @@ void Server::incomingConnection(qintptr descriptor)
 
     connect(client.get(), SIGNAL(disconnected()), this, SLOT(handleDisconnectConnection()));
 
-    connections_.insert({client->getId(), std::move(client)});
+    connections_.insert(std::make_pair(client->getId(), std::move(client)));
 }

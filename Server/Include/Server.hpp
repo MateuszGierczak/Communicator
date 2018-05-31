@@ -25,5 +25,5 @@ private:
 
     const ServerSettings& settings_;
 
-    std::map<unsigned int, std::unique_ptr<Connection>> connections_;
+    std::map<ConnectionId, std::unique_ptr<Connection>> connections_;
 };
