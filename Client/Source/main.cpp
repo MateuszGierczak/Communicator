@@ -10,7 +10,7 @@ int main(int argv, char* argc[])
 
     ServerSettings settings {"127.0.0.1", 12345};
     View view {};
-    Client client {settings};
+    Client client {settings, view};
 
     view.show();
     client.run();
