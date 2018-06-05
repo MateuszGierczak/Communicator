@@ -12,9 +12,8 @@ public:
     Client(const ServerSettings&,
            View&);
 
-    void run();
-
 private slots:
+    void handleConnectClient(QString);
     void handleRead();
 
 private:

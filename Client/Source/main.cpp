@@ -13,7 +13,6 @@ int main(int argv, char* argc[])
     Client client {settings, view};
 
     view.show();
-    client.run();
 
     return app.exec();
 }

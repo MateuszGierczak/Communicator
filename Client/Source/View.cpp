@@ -1,26 +1,32 @@
 #include "View.hpp"
 
-#include <iostream>
-
-namespace
-{
-bool isEnterPressedWithoutModifiers(const QKeyEvent& event)
-{
-    return (event.key() == Qt::Key_Enter or event.key() == Qt::Key_Return) and
-            event.modifiers() == Qt::NoModifier;
-}
-}
+#include <QHBoxLayout>
+#include <QVBoxLayout>
+#include <QLabel>
+#include <QLineEdit>
+#include <QPushButton>
 
 View::View()
 {
-    layout_.addWidget(&messageText_);
-    setLayout(&layout_);
+    QVBoxLayout *mainLayout = new QVBoxLayout(this);
+
+    QHBoxLayout *topLayout = new QHBoxLayout();
+
+    topLayout->addWidget(new QLabel("Nick"));
+    topLayout->addWidget(nickLineEdit);
+    topLayout->addWidget(connectButton);
+
+    connect(connectButton, SIGNAL(pressed()), this, SLOT(handlePressedConnectButton()));
+
+    mainLayout->addLayout(topLayout);
 }
 
-void MessageTextEdit::keyPressEvent(QKeyEvent *event)
+void View::handlePressedConnectButton()
 {
-   if(isEnterPressedWithoutModifiers(*event))
-   {
-       std::cout << "Enter pressed" << std::endl;
-   }
+    auto nick = nickLineEdit->text();
+
+    if(not nick.isEmpty())
+    {
+        emit connectClient(nick);
+    }
 }

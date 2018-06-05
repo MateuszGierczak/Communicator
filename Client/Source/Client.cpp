@@ -10,14 +10,15 @@ Client::Client(const ServerSettings& settings,
       view_(view)
 {
     connect(this, SIGNAL(readyRead()), this, SLOT(handleRead()));
+    connect(&view_, SIGNAL(connectClient(QString)), this, SLOT(handleConnectClient(QString)));
+}
+
+void Client::handleConnectClient(QString nick)
+{
+    connectToHost(settings_.host.data(), settings_.port);
 }
 
 void Client::handleRead()
 {
     std::cout << "Received data on client site" << std::endl;
-}
-
-void Client::run()
-{
-    connectToHost(settings_.host.data(), settings_.port);
 }

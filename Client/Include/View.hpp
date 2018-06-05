@@ -1,22 +1,22 @@
 #pragma once
 
 #include <QWidget>
-#include <QGridLayout>
-#include <QPlainTextEdit>
-
-class MessageTextEdit : public QPlainTextEdit
-{
-    Q_OBJECT
-private:
-    void keyPressEvent(QKeyEvent* event) override;
-};
+#include <QLineEdit>
+#include <QPushButton>
 
 class View : public QWidget
 {
     Q_OBJECT
 public:
     View();
+
+signals:
+    void connectClient(QString);
+
+private slots:
+    void handlePressedConnectButton();
+
 private:
-    QGridLayout layout_;
-    MessageTextEdit messageText_;
+    QLineEdit *nickLineEdit {new QLineEdit()};
+    QPushButton *connectButton {new QPushButton("Connect")};
 };
