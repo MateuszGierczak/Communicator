@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ServerSettings.hpp"
+
 #include <QWidget>
 #include <QLineEdit>
 #include <QPushButton>
@@ -11,12 +13,14 @@ public:
     View();
 
 signals:
-    void connectClient(QString);
+    void connectClient(ServerSettings, QString);
 
 private slots:
     void handlePressedConnectButton();
 
 private:
     QLineEdit *nickLineEdit {new QLineEdit()};
+    QLineEdit *hostLineEdit {new QLineEdit()};
+    QLineEdit *portLineEdit {new QLineEdit()};
     QPushButton *connectButton {new QPushButton("Connect")};
 };

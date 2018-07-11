@@ -1,22 +1,21 @@
 #pragma once
 
+#include "ServerSettings.hpp"
+
 #include <QTcpSocket>
 
 class View;
-class ServerSettings;
 
 class Client : public QTcpSocket
 {
     Q_OBJECT
 public:
-    Client(const ServerSettings&,
-           View&);
+    Client(View&);
 
 private slots:
-    void handleConnectClient(QString);
+    void handleConnectClient(ServerSettings, QString);
     void handleRead();
 
 private:
-    const ServerSettings& settings_;
     View& view_;
 };

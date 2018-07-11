@@ -1,9 +1,9 @@
 #pragma once
 
-#include <string_view>
+#include <QString>
 
 struct ServerSettings
 {
-    std::string_view host;
-    unsigned short port;
+    QString host;
+    quint16 port;
 };

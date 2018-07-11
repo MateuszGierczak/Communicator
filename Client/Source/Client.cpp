@@ -4,18 +4,17 @@
 
 #include <iostream>
 
-Client::Client(const ServerSettings& settings,
-               View& view)
-    : settings_(settings),
-      view_(view)
+Client::Client(View& view)
+    : view_(view)
 {
     connect(this, SIGNAL(readyRead()), this, SLOT(handleRead()));
-    connect(&view_, SIGNAL(connectClient(QString)), this, SLOT(handleConnectClient(QString)));
+    connect(&view_, SIGNAL(connectClient(ServerSettings, QString)),
+            this, SLOT(handleConnectClient(ServerSettings, QString)));
 }
 
-void Client::handleConnectClient(QString nick)
+void Client::handleConnectClient(ServerSettings settings, QString nick)
 {
-    connectToHost(settings_.host.data(), settings_.port);
+    connectToHost(settings.host, settings.port);
 }
 
 void Client::handleRead()
