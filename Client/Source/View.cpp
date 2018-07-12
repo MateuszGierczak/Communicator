@@ -20,14 +20,17 @@ constexpr unsigned FOURTH_COLUMN = 3;
 constexpr unsigned ONE_ROW_SPAN = 1;
 constexpr unsigned TWO_COLUMN_SPAN = 2;
 
+constexpr unsigned SEVENTY_PERCENT_STRETCH = 70;
+constexpr unsigned THITRY_PERCENT_STRETCH = 30;
+
 constexpr unsigned MIN_PORT_NUMBER = 0;
 constexpr unsigned MAX_PORT_NUMBER = 65535;
 
 View::View()
 {
-    QVBoxLayout *mainLayout = new QVBoxLayout(this);
+    auto mainLayout = new QVBoxLayout(this);
 
-    QGridLayout *connectionLayout = new QGridLayout();
+    auto connectionLayout = new QGridLayout();
 
     connectionLayout->addWidget(new QLabel("Host"), FIRST_ROW, FIRST_COLUMN);
     connectionLayout->addWidget(hostLineEdit, FIRST_ROW, SECOND_COLUMN);
@@ -44,14 +47,14 @@ View::View()
 
     connect(connectButton, SIGNAL(pressed()), this, SLOT(handlePressedConnectButton()));
 
-    auto *layout = new QGridLayout();
-    layout->setColumnStretch(0, 7);
-    layout->setColumnStretch(1, 3);
-    layout->addWidget(messageBox, 0, 0);
-    layout->addWidget(clientList, 0, 1);
+    auto centralLayout = new QGridLayout();
+    centralLayout->setColumnStretch(FIRST_COLUMN, SEVENTY_PERCENT_STRETCH);
+    centralLayout->setColumnStretch(SECOND_COLUMN, THITRY_PERCENT_STRETCH);
+    centralLayout->addWidget(messageBox, FIRST_ROW, FIRST_COLUMN);
+    centralLayout->addWidget(clientList, FIRST_ROW, SECOND_COLUMN);
 
     mainLayout->addLayout(connectionLayout);
-    mainLayout->addLayout(layout);
+    mainLayout->addLayout(centralLayout);
 }
 
 void View::handlePressedConnectButton()
