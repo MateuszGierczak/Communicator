@@ -2,8 +2,6 @@
 #include "View.hpp"
 #include "ServerSettings.hpp"
 
-#include <iostream>
-
 Client::Client(View& view)
     : view_(view)
 {
@@ -14,10 +12,13 @@ Client::Client(View& view)
 
 void Client::handleConnectClient(ServerSettings settings, QString nick)
 {
+    qDebug() << "Client connecting. Host : " << settings.host
+             << ", port : " << settings.port << ", nick : " << nick;
+
     connectToHost(settings.host, settings.port);
 }
 
 void Client::handleRead()
 {
-    std::cout << "Received data on client site" << std::endl;
+    qDebug() << "Received data on client site";
 }
