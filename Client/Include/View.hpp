@@ -1,17 +1,12 @@
 #pragma once
 
+#include "ui_View.h"
 #include "ServerSettings.hpp"
 
-#include <QWidget>
-#include <QLineEdit>
-#include <QPushButton>
-#include <QListWidget>
-#include <QTextEdit>
+#include <QMainWindow>
+#include <QScopedPointer>
 
-const QString DEFAULT_HOST {"127.0.0.1"};
-const QString DEFAULT_PORT_NUMBER {"1234"};
-
-class View : public QWidget
+class View : public QMainWindow
 {
     Q_OBJECT
 public:
@@ -24,11 +19,5 @@ private slots:
     void handlePressedConnectButton();
 
 private:
-    QLineEdit *nickLineEdit {new QLineEdit()};
-    QLineEdit *hostLineEdit {new QLineEdit(DEFAULT_HOST)};
-    QLineEdit *portLineEdit {new QLineEdit(DEFAULT_PORT_NUMBER)};
-    QPushButton *connectButton {new QPushButton("Connect")};
-
-    QListWidget *clientList {new QListWidget()};
-    QTextEdit *messageBox {new QTextEdit()};
+    QScopedPointer<Ui::View> ui {new Ui::View()};
 };
