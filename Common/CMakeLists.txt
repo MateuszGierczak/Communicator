@@ -1,0 +1,9 @@
+project(Common)
+
+file(GLOB SOURCE_FILES ${COMMON_SOURCE_FILES_DIR}/*.${SOURCE_FILES_EXT})
+file(GLOB HEADER_FILES ${COMMON_HEADER_FILES_DIR}/*.${HEADER_FILES_EXT})
+
+include_directories(${COMMON_HEADER_FILES_DIR})
+
+add_library(${PROJECT_NAME}Lib SHARED ${SOURCE_FILES} ${HEADER_FILES})
+target_link_libraries(${PROJECT_NAME}Lib Qt5::Network)

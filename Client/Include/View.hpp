@@ -1,10 +1,11 @@
 #pragma once
 
 #include "ui_View.h"
-#include "ServerSettings.hpp"
 
 #include <QMainWindow>
 #include <QScopedPointer>
+
+class ServerSettings;
 
 class View : public QMainWindow
 {
@@ -13,7 +14,7 @@ public:
     View();
 
 signals:
-    void connectClient(ServerSettings, QString);
+    void connectClient(const ServerSettings&, QString);
 
 private slots:
     void handlePressedConnectButton();

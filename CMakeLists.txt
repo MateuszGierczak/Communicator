@@ -35,3 +35,4 @@ set(BOOST_HEADER_FILES_DIR ${BOOST_DIR}/include)
 
 add_subdirectory(Server)
 add_subdirectory(Client)
+add_subdirectory(Common)

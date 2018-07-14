@@ -1,21 +1,25 @@
 #include "Client.hpp"
 #include "View.hpp"
 #include "ServerSettings.hpp"
+#include "MessageSender.hpp"
 
 Client::Client(View& view)
     : view_(view)
 {
     connect(this, SIGNAL(readyRead()), this, SLOT(handleRead()));
-    connect(&view_, SIGNAL(connectClient(ServerSettings, QString)),
-            this, SLOT(handleConnectClient(ServerSettings, QString)));
+    connect(&view_, SIGNAL(connectClient(const ServerSettings&, QString)),
+            this, SLOT(handleConnectClient(const ServerSettings&, QString)));
 }
 
-void Client::handleConnectClient(ServerSettings settings, QString nick)
+void Client::handleConnectClient(const ServerSettings& settings, QString nick)
 {
     qDebug() << "Client connecting. Host : " << settings.host
              << ", port : " << settings.port << ", nick : " << nick;
 
     connectToHost(settings.host, settings.port);
+
+    //ToDo implement function for sending nick name to server
+    MessageSender::sendMessage(*this);
 }
 
 void Client::handleRead()

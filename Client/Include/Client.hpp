@@ -1,10 +1,9 @@
 #pragma once
 
-#include "ServerSettings.hpp"
-
 #include <QTcpSocket>
 
 class View;
+class ServerSettings;
 
 class Client : public QTcpSocket
 {
@@ -13,7 +12,7 @@ public:
     Client(View&);
 
 private slots:
-    void handleConnectClient(ServerSettings, QString);
+    void handleConnectClient(const ServerSettings&, QString);
     void handleRead();
 
 private:
