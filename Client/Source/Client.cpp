@@ -18,8 +18,7 @@ void Client::handleConnectClient(const ServerSettings& settings, QString nick)
 
     connectToHost(settings.host, settings.port);
 
-    //ToDo implement function for sending nick name to server
-    MessageSender::sendMessage(*this);
+    MessageSender::sendMessage(*this, nick);
 }
 
 void Client::handleRead()

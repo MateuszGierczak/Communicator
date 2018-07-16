@@ -20,7 +20,7 @@
       <item row="0" column="3">
        <widget class="QLineEdit" name="portLineEdit">
         <property name="text">
-         <string>1234</string>
+         <string>12345</string>
         </property>
        </widget>
       </item>

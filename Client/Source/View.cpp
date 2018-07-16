@@ -25,9 +25,6 @@ void View::handlePressedConnectButton()
 
     if(not host.isEmpty() and not port.isEmpty() and not nick.isEmpty())
     {
-        qDebug() << "Host : " << host << ", port : " << port
-                 << ", nick : " << nick;
-
         emit connectClient(ServerSettings {host, port.toUShort()}, nick);
     }
 }
