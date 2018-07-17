@@ -1,7 +1,39 @@
 #pragma once
 
-struct MessageHeader
+#include <QtGlobal>
+#include <QDataStream>
+
+struct Message
 {
-    unsigned short msgId;
-    unsigned short msgSize;
+    Message() = default;
+
+    template<typename PayloadType>
+    Message(quint8 msgId, const PayloadType& data) : msgId_(msgId)
+    {
+        QDataStream stream {&payload_, QIODevice::WriteOnly};
+        stream << data;
+    }
+
+    template<typename PayloadType>
+    PayloadType getPayload()
+    {
+        PayloadType payload {};
+        QDataStream stream {&payload_, QIODevice::ReadOnly};
+        stream >> payload;
+
+        return payload;
+    }
+
+    quint8 msgId_ {};
+    QByteArray payload_ {};
 };
+
+QDataStream& operator<<(QDataStream& stream, const Message& message)
+{
+    return stream << message.msgId_ << message.payload_;
+}
+
+QDataStream& operator>>(QDataStream& stream, Message& message)
+{
+    return stream >> message.msgId_ >> message.payload_;
+}

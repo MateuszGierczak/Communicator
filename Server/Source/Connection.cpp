@@ -1,8 +1,7 @@
 #include "Connection.hpp"
+#include "Message.hpp"
 
 #include <QDataStream>
-
-#include <iostream>
 
 ConnectionId Connection::nextId_ {1};
 
@@ -14,14 +13,13 @@ Connection::Connection()
 
 void Connection::handleRead()
 {
-    auto numOfReadBytes = bytesAvailable();
-    std::cout << "Received " << numOfReadBytes << " bytes on server site" << std::endl;
+    qDebug() << "Received " << bytesAvailable() << " bytes on server site";
 
     QByteArray bytes {readAll()};
     QDataStream stream {bytes};
 
-    QString nick {};
-    stream >> nick;
+    Message message {};
+    stream >> message;
 
-    std::cout << "Nick: " << nick.toStdString() << std::endl;
+    qDebug() << "MsgId: " << message.msgId_ << ", nick : " << message.getPayload<QString>();;
 }
