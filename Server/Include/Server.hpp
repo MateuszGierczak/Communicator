@@ -4,7 +4,7 @@
 
 #include <map>
 #include <memory>
-#include <QtNetwork/QTcpServer>
+#include <QTcpServer>
 
 class ServerSettings;
 

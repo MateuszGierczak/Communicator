@@ -2,7 +2,7 @@
 #include "ServerSettings.hpp"
 #include "Connection.hpp"
 
-#include <iostream>
+#include <QDebug>
 
 Server::Server(const ServerSettings& settings)
     : settings_(settings)
@@ -12,7 +12,7 @@ void Server::run()
 {
     if(listen(QHostAddress::Any, settings_.port))
     {
-        std::cout << "Listening..." << std::endl;
+        qDebug() << "Listening...";
     }
 }
 
@@ -22,15 +22,15 @@ void Server::handleDisconnectConnection()
 
     connections_.erase(connection->getId());
 
-    std::cout << "Client with ID = " << connection->getId() << " disconnected."
-              << " Number of connected clients = " << connections_.size() << std::endl;
+    qDebug() << "Client with ID = " << connection->getId() << " disconnected."
+              << " Number of connected clients = " << connections_.size();
 }
 
 void Server::incomingConnection(qintptr descriptor)
 {
     auto client = std::make_unique<Connection>();
 
-    std::cout << "Client with ID = " << client->getId() << " connected" << std::endl;
+    qDebug() << "Client with ID = " << client->getId() << " connected";
 
     client->setSocketDescriptor(descriptor);
 
