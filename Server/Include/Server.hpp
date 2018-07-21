@@ -2,8 +2,7 @@
 
 #include "Connection.hpp"
 
-#include <map>
-#include <memory>
+#include <QMap>
 #include <QTcpServer>
 
 class ServerSettings;
@@ -25,5 +24,5 @@ private:
 
     const ServerSettings& settings_;
 
-    std::map<ConnectionId, std::unique_ptr<Connection>> connections_;
+    QMap<ConnectionId, Connection*> connections_;
 };

@@ -9,7 +9,7 @@ class Connection : public QTcpSocket
     Q_OBJECT
 
 public:
-    Connection();
+    Connection(QObject *parent);
 
     ConnectionId getId() const { return id_; }
 

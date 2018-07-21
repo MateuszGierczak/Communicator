@@ -20,7 +20,7 @@ void Server::handleDisconnectConnection()
 {
     Connection* connection = qobject_cast<Connection*>(sender());
 
-    connections_.erase(connection->getId());
+    connections_.remove(connection->getId());
 
     qDebug() << "Client with ID = " << connection->getId() << " disconnected."
               << " Number of connected clients = " << connections_.size();
@@ -28,13 +28,14 @@ void Server::handleDisconnectConnection()
 
 void Server::incomingConnection(qintptr descriptor)
 {
-    auto client = std::make_unique<Connection>();
+    auto client = new Connection(this);
 
     qDebug() << "Client with ID = " << client->getId() << " connected";
 
     client->setSocketDescriptor(descriptor);
 
-    connect(client.get(), SIGNAL(disconnected()), this, SLOT(handleDisconnectConnection()));
+    connect(client, SIGNAL(disconnected()), this, SLOT(handleDisconnectConnection()));
+    connect(client, SIGNAL(disconnected()), client, SLOT(deleteLater()));
 
-    connections_.insert(std::make_pair(client->getId(), std::move(client)));
+    connections_.insert(client->getId(), client);
 }
