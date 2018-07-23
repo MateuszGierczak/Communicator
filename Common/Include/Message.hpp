@@ -28,12 +28,12 @@ struct Message
     QByteArray payload_ {};
 };
 
-QDataStream& operator<<(QDataStream& stream, const Message& message)
+inline QDataStream& operator<<(QDataStream& stream, const Message& message)
 {
     return stream << message.msgId_ << message.payload_;
 }
 
-QDataStream& operator>>(QDataStream& stream, Message& message)
+inline QDataStream& operator>>(QDataStream& stream, Message& message)
 {
     return stream >> message.msgId_ >> message.payload_;
 }

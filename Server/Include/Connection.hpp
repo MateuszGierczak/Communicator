@@ -9,7 +9,7 @@ class Connection : public QTcpSocket
     Q_OBJECT
 
 public:
-    Connection(QObject *parent);
+    Connection(QObject*, ConnectionId);
 
     ConnectionId getId() const { return id_; }
 
@@ -17,7 +17,5 @@ private slots:
     void handleRead();
 
 private:
-    static ConnectionId nextId_;
-
-    const ConnectionId id_ {nextId_++};
+    const ConnectionId id_ {};
 };

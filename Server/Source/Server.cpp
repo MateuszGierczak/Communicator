@@ -28,7 +28,9 @@ void Server::handleDisconnectConnection()
 
 void Server::incomingConnection(qintptr descriptor)
 {
-    auto client = new Connection(this);
+    static ConnectionId nextConnectionId {1};
+
+    auto client = new Connection(this, nextConnectionId++);
 
     qDebug() << "Client with ID = " << client->getId() << " connected";
 
