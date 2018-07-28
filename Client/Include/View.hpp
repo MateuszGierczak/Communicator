@@ -4,6 +4,7 @@
 
 #include <QMainWindow>
 #include <QScopedPointer>
+#include <QPushButton>
 
 class ServerSettings;
 
@@ -20,5 +21,7 @@ private slots:
     void handlePressedConnectButton();
 
 private:
-    QScopedPointer<Ui::View> ui {new Ui::View()};
+    QScopedPointer<Ui::View> ui { new Ui::View() };
+    QPushButton* connectButton { new QPushButton("Connect", this) };
+    QPushButton* disconnectButton { new QPushButton("Disconnect", this) };
 };
