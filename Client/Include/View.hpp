@@ -14,11 +14,16 @@ class View : public QMainWindow
 public:
     View();
 
+    void updateAfterClientConnected();
+    void updateAfterClientDisconnected();
+
 signals:
     void connectClient(const ServerSettings&, QString);
+    void disconnectClient();
 
 private slots:
     void handlePressedConnectButton();
+    void handlePressedDisconnectButton();
 
 private:
     QScopedPointer<Ui::View> ui { new Ui::View() };

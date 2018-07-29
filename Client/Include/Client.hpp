@@ -13,7 +13,10 @@ public:
 
 private slots:
     void handleConnectClient(const ServerSettings&, QString);
+    void handleDisconnectClient();
+
     void handleRead();
+    void handleStateChanged(QAbstractSocket::SocketState);
 
 private:
     View& view_;

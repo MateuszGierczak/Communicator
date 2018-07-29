@@ -23,6 +23,19 @@ View::View()
     disconnectButton->hide();
 
     connect(connectButton, SIGNAL(pressed()), this, SLOT(handlePressedConnectButton()));
+    connect(disconnectButton, SIGNAL(pressed()), this, SLOT(handlePressedDisconnectButton()));
+}
+
+void View::updateAfterClientConnected()
+{
+    connectButton->hide();
+    disconnectButton->show();
+}
+
+void View::updateAfterClientDisconnected()
+{
+    disconnectButton->hide();
+    connectButton->show();
 }
 
 void View::handlePressedConnectButton()
@@ -33,6 +46,13 @@ void View::handlePressedConnectButton()
 
     if(not host.isEmpty() and not port.isEmpty() and not nick.isEmpty())
     {
+        qDebug() << "Trying to connect client. Host : " << host << ", port : " << port
+                 << ", nick : " << nick;
         emit connectClient(ServerSettings {host, port.toUShort()}, nick);
     }
+}
+
+void View::handlePressedDisconnectButton()
+{
+    emit disconnectClient();
 }
