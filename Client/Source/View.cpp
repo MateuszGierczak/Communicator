@@ -22,8 +22,8 @@ View::View()
     
     disconnectButton->hide();
 
-    connect(connectButton, SIGNAL(pressed()), this, SLOT(handlePressedConnectButton()));
-    connect(disconnectButton, SIGNAL(pressed()), this, SLOT(handlePressedDisconnectButton()));
+    connect(connectButton, &QAbstractButton::pressed, this, &View::handlePressedConnectButton);
+    connect(disconnectButton, &QAbstractButton::pressed, [&]() { emit disconnectClient(); });
 }
 
 void View::updateAfterClientConnected()
@@ -50,9 +50,4 @@ void View::handlePressedConnectButton()
                  << ", nick : " << nick;
         emit connectClient(ServerSettings {host, port.toUShort()}, nick);
     }
-}
-
-void View::handlePressedDisconnectButton()
-{
-    emit disconnectClient();
 }

@@ -23,7 +23,6 @@ signals:
 
 private slots:
     void handlePressedConnectButton();
-    void handlePressedDisconnectButton();
 
 private:
     QScopedPointer<Ui::View> ui { new Ui::View() };

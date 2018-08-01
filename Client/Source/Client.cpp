@@ -7,12 +7,10 @@
 Client::Client(View& view)
     : view_(view)
 {
-    connect(this, SIGNAL(readyRead()), this, SLOT(handleRead()));
-    connect(this, SIGNAL(stateChanged(QAbstractSocket::SocketState)),
-            this, SLOT(handleStateChanged(QAbstractSocket::SocketState)));
-    connect(&view_, SIGNAL(connectClient(const ServerSettings&, QString)),
-            this, SLOT(handleConnectClient(const ServerSettings&, QString)));
-    connect(&view, SIGNAL(disconnectClient()), this, SLOT(handleDisconnectClient()));
+    connect(this, &QIODevice::readyRead, this, &Client::handleRead);
+    connect(this, &QAbstractSocket::stateChanged, this, &Client::handleStateChanged);
+    connect(&view_, &View::connectClient, this, &Client::handleConnectClient);
+    connect(&view, &View::disconnectClient, [&](){ disconnectFromHost(); });
 }
 
 void Client::handleConnectClient(const ServerSettings& settings, QString nick)
@@ -23,11 +21,6 @@ void Client::handleConnectClient(const ServerSettings& settings, QString nick)
     connectToHost(settings.host, settings.port);
 
     MessageSender::sendMessage(*this, Message{1u, nick});
-}
-
-void Client::handleDisconnectClient()
-{
-    disconnectFromHost();
 }
 
 void Client::handleRead()
