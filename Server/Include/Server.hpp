@@ -12,7 +12,7 @@ class Server : public QTcpServer
     Q_OBJECT
 
 public:
-    Server(const ServerSettings&);
+    Server(QObject*, const ServerSettings&);
 
     void run();
 

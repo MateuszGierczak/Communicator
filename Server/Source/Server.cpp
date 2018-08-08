@@ -1,11 +1,11 @@
 #include "Server.hpp"
 #include "ServerSettings.hpp"
-#include "Connection.hpp"
 
 #include <QDebug>
 
-Server::Server(const ServerSettings& settings)
-    : settings_(settings)
+Server::Server(QObject* parent, const ServerSettings& settings)
+    : QTcpServer(parent),
+      settings_(settings)
 {}
 
 void Server::run()

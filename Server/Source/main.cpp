@@ -8,7 +8,7 @@ int main(int argc, char* argv[])
     QCoreApplication app {argc, argv};
 
     ServerSettings settings {"127.0.0.1", 12345};
-    Server server {settings};
+    Server server {&app, settings};
 
     server.run();
 
