@@ -1,6 +1,6 @@
 #include "Connection.hpp"
 #include "Message.hpp"
-#include "MessageReceiver.hpp"
+#include "Utils.hpp"
 
 #include <QDataStream>
 
@@ -15,7 +15,7 @@ void Connection::handleRead()
 {
     qDebug() << "Received " << bytesAvailable() << " bytes on server site";
 
-    Message message {MessageReceiver::receive(*this)};
+    Message message {receiveMsg(*this)};
 
     qDebug() << "MsgId: " << message.msgId_ << ", nick : " << message.getPayload<QString>();;
 }
