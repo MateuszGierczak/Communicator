@@ -18,6 +18,7 @@ public:
 
 private slots:
     void handleDisconnectConnection();
+    void handleUserSetupReq();
 
 private:
     void incomingConnection(qintptr descriptor) override;

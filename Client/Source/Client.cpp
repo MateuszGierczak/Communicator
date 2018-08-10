@@ -3,6 +3,7 @@
 #include "ServerSettings.hpp"
 #include "Utils.hpp"
 #include "Message.hpp"
+#include "MessagesIds.hpp"
 
 Client::Client(View& view)
     : view_(view)
@@ -20,7 +21,7 @@ void Client::handleConnectClient(const ServerSettings& settings, QString nick)
 
     connectToHost(settings.host, settings.port);
 
-    sendMsg(*this, Message{1u, nick});
+    sendMsg(*this, Message{CLIENT_SETUP_REQ, nick});
 }
 
 void Client::handleRead()

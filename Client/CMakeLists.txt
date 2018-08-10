@@ -6,6 +6,7 @@ file(GLOB FORM_FILES ${FORM_FILES_DIR}/*.${FORM_FILES_EXT})
 
 include_directories(${CLIENT_HEADER_FILES_DIR}
                     ${COMMON_HEADER_FILES_DIR}
+                    ${MESSAGES_HEADER_FILES_DIR}
                     ${BOOST_HEADER_FILES_DIR}
                     ${CMAKE_CURRENT_BINARY_DIR})
 

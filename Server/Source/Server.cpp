@@ -1,5 +1,8 @@
 #include "Server.hpp"
 #include "ServerSettings.hpp"
+#include "Utils.hpp"
+#include "Message.hpp"
+#include "MessagesIds.hpp"
 
 #include <QDebug>
 
@@ -23,7 +26,7 @@ void Server::handleDisconnectConnection()
     connections_.remove(connection->getId());
 
     qDebug() << "Client with ID = " << connection->getId() << " disconnected."
-              << " Number of connected clients = " << connections_.size();
+             << " Number of connected clients = " << connections_.size();
 }
 
 void Server::incomingConnection(qintptr descriptor)
@@ -38,6 +41,22 @@ void Server::incomingConnection(qintptr descriptor)
 
     connect(client, SIGNAL(disconnected()), this, SLOT(handleDisconnectConnection()));
     connect(client, SIGNAL(disconnected()), client, SLOT(deleteLater()));
+    connect(client, SIGNAL(readyRead()), this, SLOT(handleUserSetupReq()));
 
     connections_.insert(client->getId(), client);
 }
+
+void Server::handleUserSetupReq()
+{
+    Connection* connection = qobject_cast<Connection*>(sender());
+
+    Message message {receiveMsg(*connection)};
+
+    if(message.msgId_ == CLIENT_SETUP_REQ)
+    {
+        qDebug() << "Received CLIENT_SETUP_REQ, nick: " << message.getPayload<QString>();
+
+        disconnect(connection, SIGNAL(readyRead()), this, SLOT(handleUserSetupReq()));
+    }
+}
+

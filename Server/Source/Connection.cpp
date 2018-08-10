@@ -7,9 +7,7 @@
 Connection::Connection(QObject *parent, ConnectionId id)
     : QTcpSocket(parent),
       id_(id)
-{
-    connect(this, SIGNAL(readyRead()), this, SLOT(handleRead()));
-}
+{}
 
 void Connection::handleRead()
 {
