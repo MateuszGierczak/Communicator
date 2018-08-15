@@ -15,5 +15,5 @@ void Connection::handleRead()
 
     Message message {receiveMsg(*this)};
 
-    qDebug() << "MsgId: " << message.msgId_ << ", nick : " << message.getPayload<QString>();;
+    qDebug() << "MsgId: " << message.getMsgId() << ", nick : " << message.getPayload<QString>();;
 }

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "MessageTypeTraits.hpp"
+
 #include <QtGlobal>
 #include <QDataStream>
 
@@ -8,7 +10,8 @@ struct Message
     Message() = default;
 
     template<typename PayloadType>
-    Message(quint8 msgId, const PayloadType& data) : msgId_(msgId)
+    Message(const PayloadType& data)
+        : msgId_(MessageTypeTraits<PayloadType>::id_)
     {
         QDataStream stream {&payload_, QIODevice::WriteOnly};
         stream << data;
@@ -24,6 +27,12 @@ struct Message
         return payload;
     }
 
+    quint8 getMsgId() const { return msgId_; }
+
+    friend inline QDataStream& operator<<(QDataStream&, const Message&);
+    friend inline QDataStream& operator>>(QDataStream&, Message&);
+
+private:
     quint8 msgId_ {};
     QByteArray payload_ {};
 };

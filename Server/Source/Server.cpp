@@ -52,7 +52,7 @@ void Server::handleUserSetupReq()
 
     Message message {receiveMsg(*connection)};
 
-    if(message.msgId_ == CLIENT_SETUP_REQ)
+    if(message.getMsgId() == CLIENT_SETUP_REQ)
     {
         qDebug() << "Received CLIENT_SETUP_REQ, nick: " << message.getPayload<QString>();
 
